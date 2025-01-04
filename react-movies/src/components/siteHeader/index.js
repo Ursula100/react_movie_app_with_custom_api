@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../../contexts/authContext";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
