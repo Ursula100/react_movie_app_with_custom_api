@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Navigate, Routes} from "react-router-dom";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage";
+import SignUpPage from "./pages/signUpPage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="*" element={ <Navigate to="/" /> } />
               <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={ <SignUpPage /> } />
             </Routes>
           </MoviesContextProvider>
         </AuthContextProvider>
