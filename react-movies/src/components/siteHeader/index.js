@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -8,6 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/authContext";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -21,6 +22,7 @@ const SiteHeader = ({ history }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
   const menuOptions = [
@@ -96,6 +98,21 @@ const SiteHeader = ({ history }) => {
                   </Button>
                 ))}
               </>
+            )}
+            {context.isAuthenticated ? (
+              <Button 
+                color="inherit" 
+                onClick={() => context.signout()}
+              >
+                Sign out
+              </Button>
+            ) : (
+              <Button 
+                color="inherit" 
+                onClick={() => navigate('/login')}
+              >
+                Login
+              </Button>
             )}
         </Toolbar>
       </AppBar>
