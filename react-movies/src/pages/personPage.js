@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner';
 import PersonDetails from "../components/templatePersonPage";
-import { getPersonBio, getPersonMovieCredits } from "../api/tmdb-api";
+import { getPersonMovieCredits } from "../api/tmdb-api";
+import { getPersonBio } from "../api/movies-api";
 
 const PersonPage = () => {
   const { id } = useParams();

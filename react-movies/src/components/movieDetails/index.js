@@ -16,7 +16,7 @@ import Spinner from '../spinner';
 import MovieReviews from '../movieReviews';
 import Grid2 from '@mui/material/Grid';
 import CastCard from '../castCard';
-import { getMovieCredits } from '../../api/tmdb-api';
+import { getMovieCredits } from '../../api/movies-api';
 
 const root = {
   display: 'flex',

@@ -159,7 +159,24 @@ export const getMovieCredits = async ({queryKey}) => {
     });
   
     if (!response.ok) {
-      throw new Error('Failed to fetch movie reviews');
+      throw new Error('Failed to fetch movie credits');
+    }
+  
+    return response.json();
+};
+
+export const getPersonBio = async ({queryKey}) => { 
+    const [, { id }] = queryKey; 
+
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/person/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch person');
     }
   
     return response.json();

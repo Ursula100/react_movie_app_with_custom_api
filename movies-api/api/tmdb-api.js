@@ -170,3 +170,24 @@ export const getMovieCredits = async (args) => {
         throw error;
     }
 };
+
+export const getPersonBio = async (args) => {
+    try {
+
+        // Destructure the id from the queryKey
+        const [, idPart] = args.queryKey;
+        const { id } = idPart;
+
+        const response = await fetch(
+            `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.TMDB_KEY}&language=en-US`
+        );
+
+        if (!response.ok) {
+            throw new Error(response.json().message);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+};
