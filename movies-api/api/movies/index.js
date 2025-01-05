@@ -1,6 +1,6 @@
 import movieModel from './movieModel';
 import asyncHandler from 'express-async-handler';
-import {getGenres, getUpcomingMovies, getNowPlayingMovies, getMovie, getDiscoverMovies, getMovieImages, getMovieReviews, getSimilarMovies} from '../tmdb-api';  
+import {getGenres, getUpcomingMovies, getNowPlayingMovies, getMovie, getDiscoverMovies, getMovieImages, getMovieReviews, getSimilarMovies, getMovieCredits} from '../tmdb-api';  
 import express from 'express';
 
 const router = express.Router();
@@ -66,13 +66,13 @@ router.get('/tmdb/movie/:id', asyncHandler(async (req, res) => {
     res.status(200).json(movie);
 }));
 
-router.get('/tmdb/movie/images/:id', asyncHandler(async (req, res) => {
+router.get('/tmdb/movie/:id/images', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const images = await getMovieImages({ queryKey: ['movie', { id }] });
     res.status(200).json(images);
 }));
 
-router.get('/tmdb/movie/reviews/:id', asyncHandler(async (req, res) => {
+router.get('/tmdb/movie/:id/reviews', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const reviews = await getMovieReviews({ queryKey: ['movie', { id }] });
     res.status(200).json(reviews);
@@ -81,6 +81,12 @@ router.get('/tmdb/movie/reviews/:id', asyncHandler(async (req, res) => {
 router.get('/tmdb/movie/:id/similar', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const movies = await getSimilarMovies({ queryKey: ['movie', { id }] });
+    res.status(200).json(movies);
+}));
+
+router.get('/tmdb/movie/:id/credits', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const movies = await getMovieCredits({ queryKey: ['movie', { id }] });
     res.status(200).json(movies);
 }));
 

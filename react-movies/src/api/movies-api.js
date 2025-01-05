@@ -101,7 +101,7 @@ export const getMovieImages = async ({queryKey}) => {
     const [, { id }] = queryKey; 
 
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/movie/images/${id}`, {
+      `http://localhost:8080/api/movies/tmdb/movie/${id}/images`, {
       headers: {
         'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
       }
@@ -118,7 +118,7 @@ export const getMovieReviews = async ({queryKey}) => {
     const [, { id }] = queryKey; 
 
     const response = await fetch(
-      `http://localhost:8080/api/movies/tmdb/movie/reviews/${id}`, {
+      `http://localhost:8080/api/movies/tmdb/movie/${id}/reviews`, {
       headers: {
         'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
       }
@@ -147,6 +147,23 @@ export const getSimilarMovies = async ({queryKey}) => {
   
     return response.json();
 }; 
+
+export const getMovieCredits = async ({queryKey}) => { 
+    const [, { id }] = queryKey; 
+
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/movie/${id}/credits`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie reviews');
+    }
+  
+    return response.json();
+};
 
 export const getGenres = async () => { 
     const response = await fetch(
