@@ -1,6 +1,6 @@
 import movieModel from './movieModel';
 import asyncHandler from 'express-async-handler';
-import {getGenres, getUpcomingMovies, getNowPlayingMovies, getMovie, getDiscoverMovies, getMovieImages} from '../tmdb-api';  
+import {getGenres, getUpcomingMovies, getNowPlayingMovies, getMovie, getDiscoverMovies, getMovieImages, getMovieReviews, getSimilarMovies} from '../tmdb-api';  
 import express from 'express';
 
 const router = express.Router();
@@ -27,7 +27,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 
-// Get movie details
+// Get movie details from mongo database
 router.get('/:id', asyncHandler(async (req, res) => {
     const id = parseInt(req.params.id);
     const movie = await movieModel.findByMovieDBId(id);
@@ -70,6 +70,18 @@ router.get('/tmdb/movie/images/:id', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const images = await getMovieImages({ queryKey: ['movie', { id }] });
     res.status(200).json(images);
+}));
+
+router.get('/tmdb/movie/reviews/:id', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const reviews = await getMovieReviews({ queryKey: ['movie', { id }] });
+    res.status(200).json(reviews);
+}));
+
+router.get('/tmdb/movie/:id/similar', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const movies = await getSimilarMovies({ queryKey: ['movie', { id }] });
+    res.status(200).json(movies);
 }));
 
 router.get('/tmdb/genres', asyncHandler(async (req, res) => {

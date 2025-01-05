@@ -108,7 +108,41 @@ export const getMovieImages = async ({queryKey}) => {
     });
   
     if (!response.ok) {
-      throw new Error('Failed to fetch movie');
+      throw new Error('Failed to fetch movie images');
+    }
+  
+    return response.json();
+}; 
+
+export const getMovieReviews = async ({queryKey}) => { 
+    const [, { id }] = queryKey; 
+
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/movie/reviews/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie reviews');
+    }
+  
+    return response.json();
+}; 
+
+export const getSimilarMovies = async ({queryKey}) => { 
+    const [, { id }] = queryKey; 
+
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/movie/${id}/similar`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie reviews');
     }
   
     return response.json();
@@ -123,8 +157,8 @@ export const getGenres = async () => {
     });
   
     if (!response.ok) {
-      throw new Error('Failed to fetch movies');
+      throw new Error('Failed to fetch genres');
     }
   
     return response.json();
-  };
+};

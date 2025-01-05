@@ -4,10 +4,9 @@ import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid2";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { getMovieImages } from "../../api/movies-api";
+import { getMovieImages, getSimilarMovies } from "../../api/movies-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
-import { getSimilarMovies } from "../../api/tmdb-api";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Grid2 from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
