@@ -1,6 +1,6 @@
 import movieModel from './movieModel';
 import asyncHandler from 'express-async-handler';
-import {getGenres, getUpcomingMovies, getNowPlayingMovies} from '../tmdb-api';  
+import {getGenres, getUpcomingMovies, getNowPlayingMovies, getMovie, getDiscoverMovies} from '../tmdb-api';  
 import express from 'express';
 
 const router = express.Router();
@@ -58,6 +58,12 @@ router.get('/tmdb/now_playing', asyncHandler(async (req, res) => {
     const { page } = req.query; // Extract page from query parameters
     const nowPlayingMovies = await getNowPlayingMovies(page);
     res.status(200).json(nowPlayingMovies);
+}));
+
+router.get('/tmdb/movie/:id', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const movie = await getMovie({ queryKey: ['movie', { id }] });
+    res.status(200).json(movie);
 }));
 
 router.get('/tmdb/genres', asyncHandler(async (req, res) => {

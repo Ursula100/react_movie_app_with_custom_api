@@ -69,6 +69,23 @@ export const getNowPlayingMovies = async (page) => {
     return response.json();
 }; 
 
+export const getMovie = async ({queryKey}) => { 
+    const [, { id }] = queryKey; 
+
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/movie/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movie');
+    }
+  
+    return response.json();
+}; 
+
 export const getMovies = async () => {
     const response = await fetch(
       'http://localhost:8080/api/movies', {
@@ -78,9 +95,9 @@ export const getMovies = async () => {
     }
     )
     return response.json();
-  };
+};
 
-  export const getGenres = async () => { 
+export const getGenres = async () => { 
     const response = await fetch(
       `http://localhost:8080/api/movies/tmdb/genres`, {
       headers: {
