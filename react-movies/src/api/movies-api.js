@@ -24,6 +24,21 @@ export const signup = async (username, password) => {
 
 // Movies Endpoints
 
+export const getDiscoverMovies = async (page) => { 
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/discover/?page=${page}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movies');
+    }
+  
+    return response.json();
+}; 
+
 export const getUpcomingMovies = async (page) => { 
     const response = await fetch(
       `http://localhost:8080/api/movies/tmdb/upcoming/?page=${page}`, {
@@ -37,7 +52,7 @@ export const getUpcomingMovies = async (page) => {
     }
   
     return response.json();
-  }; 
+}; 
 
   export const getMovies = async () => {
     const response = await fetch(

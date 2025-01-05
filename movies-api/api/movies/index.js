@@ -42,6 +42,11 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 /*Endpoints from TMDB*/
 
+router.get('/tmdb/discover', asyncHandler(async (req, res) => {
+    const { page } = req.query; // Extract page from query parameters
+    const upcomingMovies = await getUpcomingMovies(page);
+    res.status(200).json(upcomingMovies);
+}));
 
 router.get('/tmdb/upcoming', asyncHandler(async (req, res) => {
     const { page } = req.query; // Extract page from query parameters

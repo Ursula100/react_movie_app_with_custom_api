@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from 'react-query';
-import { getMovies } from "../api/movies-api";
+import { getDiscoverMovies } from "../api/movies-api";
 import PageTemplate from '../components/templateMovieListPage';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites';
@@ -12,7 +12,7 @@ const HomePage = (props) => {
   // Fetch movies for the current page using react-query
   const { data, error, isLoading, isError } = useQuery(
     ['discover', currentPage], // Add currentPage as part of the query key to refetch data when page changes
-    () => getMovies(currentPage) // Fetch movies for the current page
+    () => getDiscoverMovies(currentPage) // Fetch movies for the current page
   );
 
   const handlePageChange = (event, page) => {
