@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 export const getDiscoverMovies = async (page) => {
     try {
         const response = await fetch(
-            `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_KEY}&language=en-US&page=${page}`
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_KEY}&language=en-US&page=${page}`
         );
 
         if (!response.ok) {
@@ -20,6 +20,23 @@ export const getUpcomingMovies = async (page) => {
     try {
         const response = await fetch(
             `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
+        );
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.status_message || "Something went wrong");
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getNowPlayingMovies = async (page) => {
+    try {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
         );
 
         if (!response.ok) {

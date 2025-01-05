@@ -1,4 +1,4 @@
-export const getMovies = (page) => {
+export const getDiscoverMovies = (page) => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}`
   ).then((response) => {

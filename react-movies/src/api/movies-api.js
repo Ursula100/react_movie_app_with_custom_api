@@ -54,7 +54,22 @@ export const getUpcomingMovies = async (page) => {
     return response.json();
 }; 
 
-  export const getMovies = async () => {
+export const getNowPlayingMovies = async (page) => { 
+    const response = await fetch(
+      `http://localhost:8080/api/movies/tmdb/now_playing/?page=${page}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_MOVIES_API_KEY}`
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Failed to fetch movies');
+    }
+  
+    return response.json();
+}; 
+
+export const getMovies = async () => {
     const response = await fetch(
       'http://localhost:8080/api/movies', {
       headers: {
