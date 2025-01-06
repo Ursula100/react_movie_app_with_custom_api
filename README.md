@@ -2,6 +2,8 @@
 
 Name: Ursula Tamen
 
+[YouTube Demo](https://youtu.be/76z9rz9Ho4I)
+
 ## Features.
 
 - Further extension of API and intergration with react movies app
@@ -16,12 +18,17 @@ create an `.env` file in movies-api root folder and insert the following variabl
 
 ______________________
 NODE_ENV=development
+
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
+
+HOST=mongoDB=YourMongoURL
+
 seedDb=true
+
 secret=YourJWTSecret
+
 TMDB_KEY=YourTMDBKey
+
 REACT_APP_MOVIES_API_KEY=AUserTokenthatWillServeAsAPublicKey
 ______________________
 
