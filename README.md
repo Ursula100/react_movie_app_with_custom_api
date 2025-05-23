@@ -1,4 +1,4 @@
-# Assignment 2 - Web API.
+# Movie app - Add Custom API.
 
 Name: Ursula Tamen
 
@@ -6,7 +6,7 @@ Name: Ursula Tamen
 
 ## Features.
 
-- Further extension of API and intergration with react movies app
+- Further extension of react movies app with integration of custome api.
 
 ## Setup requirements.
 
@@ -99,7 +99,3 @@ User passwords are hashed using bcrypt before storing them in the database, ensu
 ## Integrating with React App
 
 All calls are made to the API
-
-## Independent learning (if relevant)
-
-[N/A]
