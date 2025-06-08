@@ -10,8 +10,6 @@ Name: Ursula Tamen
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
-
 ## API Configuration
 
 create an `.env` file in movies-api root folder and insert the following variables
