@@ -1,99 +1,130 @@
-# Movie app - Add Custom API.
+# 🎥 React Movie App – Custom API Integrated Edition
 
-Name: Ursula Tamen
-
+By Ursula Tamen  
 [YouTube Demo](https://youtu.be/76z9rz9Ho4I)
 
-## Features.
+This is the enhanced version of my full-stack React Movie App. It builds on the previous TMDB-powered frontend by integrating a custom-built backend API to manage movies, users, and reviews. The project offers full authentication, route protection, and a dynamic UI experience.
 
-- Further extension of react movies app with integration of custome api.
+---
 
-## Setup requirements.
+## ✨ Key Features
 
-## API Configuration
+### 🎬 Frontend (React)
+- Discover movies using TMDB endpoints (`/upcoming`, `/now_playing`, etc.)
+- View full movie details including cast, similar titles, and reviews
+- Responsive UI layout using Material UI and `react-responsive-carousel`
+- Filter and sort movie lists by title, rating, or release date
+- Pagination for discoverable and now playing movies
+- Sticky headers for improved navigation
+- Graceful handling of missing data (e.g. no biography fallback)
 
-create an `.env` file in movies-api root folder and insert the following variables
+### 🔧 Backend (Node.js + Express + MongoDB)
+- Custom REST API exposing MongoDB-stored movies and TMDB proxy endpoints
+- JWT-based authentication with login/register routes
+- Password hashing using bcrypt for secure storage
+- Role-based route protection using middleware
+- Secure .env usage for API keys, JWT secrets, and DB connection
+- Public/private endpoint logic using admin-level token handling
 
-______________________
+---
+
+## 🛠 Setup Requirements
+
+### API `.env` (in `movies-api/`)
+```
 NODE_ENV=development
-
 PORT=8080
-
 HOST=mongoDB=YourMongoURL
-
 seedDb=true
-
 secret=YourJWTSecret
-
 TMDB_KEY=YourTMDBKey
-
 REACT_APP_MOVIES_API_KEY=AUserTokenthatWillServeAsAPublicKey
-______________________
+```
 
-create an `.env` file in react-movies root and insert the following variables
-______________________
-
+### React `.env` (in `react-movies/`)
+```
 REACT_APP_MOVIES_API_KEY=AUserTokenthatWillServeAsAPublicKey
-______________________
+```
 
-## API Design
-Give an overview of your web API design, perhaps similar to the following: 
+---
 
-### API (MongoDB) Endpoints
-- /api/movies | GET | Retrieve a paginated list of movies from the MongoDB database.
-- /api/movies/{movieid} | GET | Retrieve detailed information about a specific movie using the movie ID from MongoDB.
+## 🧩 API Design
 
-### API Authentication Endpoints
-- /api/users | POST | User login
-- /api/users?action=register | POST | Create a user
+### 📂 MongoDB Endpoints
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/movies` | GET | Get all movies (paginated) |
+| `/api/movies/{movieid}` | GET | Get one movie by ID |
 
-### API (TMDB) Endpoints
-- /api/movies/tmdb/discover | GET | Retrieve a paginated list of movies discovered from TMDB.
-- /api/movies/tmdb/upcoming | GET | Retrieve a paginated list of upcoming movies from TMDB.
-- /api/movies/tmdb/now_playing | GET | Retrieve a paginated list of movies currently playing in theaters from TMDB.
-- /api/movies/tmdb/movie/{movieid} | GET | Retrieve detailed information about a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/movie/{movieid}/images | GET | Retrieve images associated with a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/movie/{movieid}/reviews | GET | Retrieve reviews for a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/movie/{movieid}/reviews | POST | Create a new review for a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/movie/{movieid}/similar | GET | Retrieve movies similar to a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/movie/{movieid}/credits | GET | Retrieve cast and crew details for a specific movie using the movie ID from TMDB.
-- /api/movies/tmdb/person/{personid}/movie_credits | GET | Retrieve movie credits for a specific person using the person ID from TMDB.
-- /api/movies/tmdb/genres | GET | Retrieve a list of available movie genres from TMDB.
+### 🔐 Authentication
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/users` | POST | User login |
+| `/api/users?action=register` | POST | User registration |
 
-## Security and Authentication
+### 🎞 TMDB Proxy Endpoints
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/movies/tmdb/discover` | GET | Get movies by popularity (paginated) |
+| `/api/movies/tmdb/upcoming` | GET | List upcoming movies |
+| `/api/movies/tmdb/now_playing` | GET | List now playing movies |
+| `/api/movies/tmdb/movie/{id}` | GET | Get detailed movie info |
+| `/api/movies/tmdb/movie/{id}/images` | GET | Movie-related images |
+| `/api/movies/tmdb/movie/{id}/reviews` | GET | User reviews (from TMDB) |
+| `/api/movies/tmdb/movie/{id}/reviews` | POST | Add custom review (JWT required) |
+| `/api/movies/tmdb/movie/{id}/similar` | GET | Recommend similar movies |
+| `/api/movies/tmdb/movie/{id}/credits` | GET | Movie cast & crew |
+| `/api/movies/tmdb/person/{id}/movie_credits` | GET | Credits for a person (actor/director) |
+| `/api/movies/tmdb/genres` | GET | Available movie genres |
 
-### Authentication Mechanism
-The API implements a JWT-based authentication system to secure access to endpoints.
-- Only authorized users can perform actions such as accessing protected routes or modifying resources.
-#### Details of Implementation
-Token Generation:
-Users authenticate themselves using their credentials (username and password) via the login endpoint.
-Upon successful authentication, a JSON Web Token (JWT) is generated and sent to the client.
-Token Verification:
-Protected routes are secured using middleware that verifies the JWT in the Authorization header.
-If the token is invalid or missing, the request is denied.
-Local Storage of Token:
-The token is stored in window.localStorage and attached to requests via the Authorization header as Bearer <token>.
+---
 
-### Public vs. Protected Endpoints
-All endpoints require authentication. Most use API key REACT_APP_MOVIES_API_KEY which helps with unprotected pages such as the home page which still call endpoints. REACT_APP_MOVIES_API_KEY, which is securely stored in the .env file. To do these an "admin user" can be created and its token used. This helps keeep certain pages public.
+## 🔐 Security and Route Protection
 
-Protected pages are secured and require a the visiting user's valid JWT token.
+### 🔑 Authentication
+- JWT token generation and validation using middleware
+- Tokens stored in browser `localStorage`
+- Sent in header as `Authorization: Bearer <token>`
 
-Protected Pages:
-- Favorites page
-- Add movie review page
+### 🔓 Public vs Protected Pages
+| Page | Access Type |
+|------|-------------|
+| Browse Movies, Movie Details | Public |
+| Favorites | Authenticated users only |
+| Submit Review | Authenticated users only |
 
+### 🧱 Middleware Features
+- Token verification for all protected routes
+- Invalid or expired tokens block access
+- Role-based auth supported via admin key
 
-### Middleware for Securing Routes
-The API uses a custom middleware to secure routes.
+### 🔐 Security Implementation
+- Passwords hashed with bcrypt
+- Sensitive data like JWT secrets stored in `.env`
+- API key access for public data control via REACT_APP_MOVIES_API_KEY
 
-### Security:
-Environment Variables:
-Keys like JWT_SECRET and MOVIES_API_PUBLIC_KEY are stored in environment variables to avoid hardcoding sensitive information.
-Password Hashing:
-User passwords are hashed using bcrypt before storing them in the database, ensuring password security even in the event of a data breach. 
+---
 
-## Integrating with React App
+## 🔗 Frontend Integration
+- API requests made via Axios and React Query
+- All requests check for stored auth token before protected actions
+- Pages with favorites and review forms are blocked if not logged in
 
-All calls are made to the API
+---
+
+## 🎓 Skills Demonstrated
+- Full-Stack Web Development (MERN)
+- REST API Design + Secure Auth
+- Frontend Pagination, Filtering, Sorting
+- State Management with React Query
+- Middleware and Role-Based Access Control
+- Responsive UI/UX with Carousel & Breakpoints
+
+---
+
+## 📊 Demo & Screenshots
+- Screenshots and UI previews to be added
+
+---
+
+Feel free to fork this repo, raise issues, or suggest improvements!
